@@ -6,7 +6,7 @@ require 'crawl_back/version'
 Gem::Specification.new do |spec|
   spec.name          = "crawl_back"
   spec.version       = CrawlBack::VERSION
-  spec.authors       = ["powermike"]
+  spec.authors       = ["Mickael Palma"]
   spec.email         = ["mickael@spypp.com"]
   spec.description   = %q{API to query website}
   spec.summary       = %q{CrawlBack allows you to query a website and retrieve organized datas}
