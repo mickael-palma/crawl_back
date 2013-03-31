@@ -1,4 +1,4 @@
-require "crawl_back/version"
+require_relative "crawl_back/version"
 
 module CrawlBack
   # Your code goes here...

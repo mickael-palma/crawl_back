@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.version       = CrawlBack::VERSION
   spec.authors       = ["powermike"]
   spec.email         = ["mickael@spypp.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{API to query website}
+  spec.summary       = %q{CrawlBack allows you to query a website and retrieve organized datas}
   spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.license       = ""
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
