@@ -1,7 +1,6 @@
 require_relative '../../test_helper'
  
-describe CrawlBack do
- 
+describe CrawlBack::VERSION do
   it "must be defined" do
     CrawlBack::VERSION.wont_be_nil
   end
@@ -9,5 +8,4 @@ describe CrawlBack do
   it "must be a string" do
     CrawlBack::VERSION.must_be_kind_of String
   end
-
 end
