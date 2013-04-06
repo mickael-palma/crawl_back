@@ -33,12 +33,20 @@ module CrawlBack
     end
 
     def search_form
-      get.form_with @form_options
+      unless @form_options.blank?
+        get.form_with @form_options 
+      else
+        self
+      end
     end
 
     def submit_search_form
-      search_form.field_with(@field_options).value = @term
-      @agent.submit search_form
+      if search_form and !@field_options.blank?
+        search_form.field_with(@field_options).value = @term
+        @agent.submit search_form
+      else
+        self
+      end
     end
     alias_method  :results, :submit_search_form
 
