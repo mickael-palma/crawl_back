@@ -15,7 +15,7 @@ module CrawlBack
     validates :url, :format => { :with => URI::regexp }
 
     def module_name
-      URL.new(@url).extract_module_name if valid?
+      URL.new(@url).module_name if valid?
     end
 
     def search(term)

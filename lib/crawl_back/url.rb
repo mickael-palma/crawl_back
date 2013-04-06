@@ -11,8 +11,8 @@ module CrawlBack
       URI.parse(@url)
     end
 
-    def extract_module_name
-      parsed_url.host.gsub('www.', '').split(/[^a-z0-9]/i).map { |e| e.capitalize }.join
+    def module_name
+      ModuleNameExtractor.new(parsed_url.host).module_name
     end
   end
 end

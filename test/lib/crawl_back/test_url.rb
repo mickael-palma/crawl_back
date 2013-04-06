@@ -11,6 +11,6 @@ describe CrawlBack::URL do
   end
 
   it "should return a module name" do
-    @good_url.extract_module_name.must_be_instance_of String
+    @good_url.module_name.must_be_instance_of String
   end
 end
