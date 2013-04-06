@@ -3,7 +3,9 @@ require 'mechanize'
 module CrawlBack
   class CRAWLER
 
-    attr_accessor :agent, :field_options, :form_options, :term
+    attr_accessor :agent,
+                  :term, :field_options, :form_options,
+                  :product_page_url_pattern, :product_page_dom_pattern
 
     def initialize(url, options={})
       @url = url
@@ -16,6 +18,10 @@ module CrawlBack
       @term          = options[:term]
       @field_options = options[:field_options]
       @form_options  = options[:form_options]
+
+      # product page details
+      @product_page_url_pattern = options[:product_page_url_pattern]
+      @product_page_dom_pattern = options[:product_page_dom_pattern]
     end
     
     def random_user_agent
@@ -35,6 +41,26 @@ module CrawlBack
       @agent.submit search_form
     end
     alias_method  :results, :submit_search_form
-    
+
+    def product_page?
+      product_page_match_url_pattern? or product_page_match_dom_pattern?
+    end
+
+    def product_page_match_url_pattern?
+      unless @product_page_url_pattern.blank?
+        @url =~ @product_page_url_pattern ? true : false
+      else
+        false
+      end
+    end
+
+    def product_page_match_dom_pattern?
+      unless @product_page_dom_pattern.blank?
+        get.search(@product_page_dom_pattern).size > 0 ? true : false
+      else
+        false
+      end
+    end
+
   end
 end

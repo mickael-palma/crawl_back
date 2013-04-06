@@ -5,10 +5,11 @@ module CrawlBack
   class WEBSITE
     include ActiveModel::Validations
 
-    attr_accessor :url
+    attr_accessor :url, :options
 
-    def initialize(url)
+    def initialize(url, options={})
       @url    = url
+      @options = options
       @errors = ActiveModel::Errors.new(self)
     end
 
@@ -21,5 +22,10 @@ module CrawlBack
     def search(term)
       SEARCH.new(@url, term).results
     end
+
+    def product_page?
+      valid? ? CRAWLER.new(@url, @options).product_page? : false
+    end
+
   end
 end

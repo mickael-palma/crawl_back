@@ -4,6 +4,7 @@ describe CrawlBack::WEBSITE do
   before do
     @good_url = CrawlBack::WEBSITE.new("http://www.google.com")
     @bad_url  = CrawlBack::WEBSITE.new("google.com")
+    @product_url = CrawlBack::WEBSITE.new("http://www.google.com/about/jobs/teams/product-management/", {product_page_url_pattern: /product/})
   end
 
   describe "Basic" do 
@@ -29,6 +30,14 @@ describe CrawlBack::WEBSITE do
       bad_urls.each do |url|
         CrawlBack::WEBSITE.new(url).module_name.must_be_nil
       end
+    end
+  end
+
+  describe "Product" do
+    it "must tell if it's a product page" do
+      @product_url.product_page?.must_equal true
+      @bad_url.product_page?.must_equal false
+      @good_url.product_page?.must_equal false
     end
   end
 end

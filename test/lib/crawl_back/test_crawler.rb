@@ -6,6 +6,8 @@ describe CrawlBack::CRAWLER do
     @crawler.term          = "test"
     @crawler.field_options = {name: 'q'} # 'q' is the google form textfield name
     @crawler.form_options  = {name: 'f'} # 'f' is the google form name
+    @crawler.product_page_url_pattern = /product/
+    @crawler.product_page_dom_pattern = 'title' # CSS path
   end
 
   it 'must get a webpage' do
@@ -27,6 +29,12 @@ describe CrawlBack::CRAWLER do
 
     it "must submit the search form" do
       @crawler.submit_search_form.must_be_instance_of Mechanize::Page
+    end
+  end
+
+  describe "Product Page" do
+    it "must tell if it's a product page" do
+      @crawler.product_page?.must_equal true
     end
   end
   
