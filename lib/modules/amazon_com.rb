@@ -1,0 +1,2 @@
+module AmazonCom
+end

@@ -6,7 +6,7 @@ describe CrawlBack::WEBSITE do
     @bad_url  = CrawlBack::WEBSITE.new("google.com")
     
     # we include 'product_page_url_pattern' to pass test
-    @product_url = CrawlBack::WEBSITE.new("http://www.google.com/about/jobs/teams/product-management/", {product_page_url_pattern: /product/})
+    @product_url = CrawlBack::WEBSITE.new("http://www.google.com/about/jobs/teams/product-management/", product_page_url_pattern: /product/)
   end
 
   describe "Basic" do 

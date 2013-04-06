@@ -8,9 +8,10 @@ module CrawlBack
     attr_accessor :url
 
     def initialize(url, options={})
-      @url    = url
+      @url     = url
       @options = options
-      @errors = ActiveModel::Errors.new(self)
+
+      @errors  = ActiveModel::Errors.new(self)
     end
 
     validates :url, format: { with: URI::regexp }
@@ -20,7 +21,8 @@ module CrawlBack
     end
 
     def search(term)
-      SEARCH.new(@url, term: term).results
+      @options[:term] = term
+      SEARCH.new(@url, @options).results
     end
 
     def product_page?
