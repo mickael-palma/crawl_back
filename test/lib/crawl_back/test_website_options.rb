@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 
 describe CrawlBack::WEBSITE_OPTIONS do
   before do
-    @website_opts = CrawlBack::AmazonCom.new.options.options
+    @website_opts = CrawlBack::AmazonCom.options
   end
 
   it "must have a base_url" do

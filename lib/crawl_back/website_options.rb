@@ -27,23 +27,20 @@ module CrawlBack
 
     %w(base_url).each do |meth|
       define_method(meth) do |*args| 
-        args.blank? ? instance_variable_get("@#{meth}") : instance_variable_set("@#{meth}", args.first)
+        args.empty? ? instance_variable_get("@#{meth}") : instance_variable_set("@#{meth}", args.first)
       end
     end
-
   end
 
   class SearchForm < WEBSITE_OPTIONS
-
     def initialize(&block)
       instance_eval &block
     end
 
     %w(form_name text_field).each do |meth|
       define_method(meth) do |*args| 
-        args.blank? ? instance_variable_get("@#{meth}") : instance_variable_set("@#{meth}", args.first)
+        args.empty? ? instance_variable_get("@#{meth}") : instance_variable_set("@#{meth}", args.first)
       end
     end
-
   end    
 end
