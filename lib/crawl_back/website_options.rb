@@ -1,6 +1,8 @@
 module CrawlBack
   class WEBSITE_OPTIONS
 
+    METHOD_WHITE_LIST = %w{ base_url form_name text_field }
+
     attr_accessor :options
 
     def initialize(&block)
@@ -18,29 +20,24 @@ module CrawlBack
       form = SearchForm.new &block
       @options[:search_form]  = { form_name: form.form_name, text_field: form.text_field }
     end
-  end
 
-  class Config < WEBSITE_OPTIONS
-    def initialize(&block)
-      instance_eval &block
-    end
-
-    %w(base_url).each do |meth|
-      define_method(meth) do |*args| 
+    def method_missing(meth, *args, &block)
+      if METHOD_WHITE_LIST.include?(meth.to_s)
         args.empty? ? instance_variable_get("@#{meth}") : instance_variable_set("@#{meth}", args.first)
+      else
+        super
       end
     end
   end
 
-  class SearchForm < WEBSITE_OPTIONS
-    def initialize(&block)
-      instance_eval &block
-    end
-
-    %w(form_name text_field).each do |meth|
-      define_method(meth) do |*args| 
-        args.empty? ? instance_variable_get("@#{meth}") : instance_variable_set("@#{meth}", args.first)
+  %w{ Config SearchForm }.each do |klass|
+    class_definition = Class.new(WEBSITE_OPTIONS) do
+      def initialize(&block)
+        instance_eval &block
       end
     end
-  end    
+      
+    Object.const_set(klass, class_definition)
+  end
+   
 end
