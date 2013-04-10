@@ -30,14 +30,18 @@ module CrawlBack
     end
   end
 
-  %w{ Config SearchForm }.each do |klass|
-    class_definition = Class.new(WEBSITE_OPTIONS) do
-      def initialize(&block)
-        instance_eval &block
+  # Create config classes
+  class << self
+    def class_creation
+      Class.new(WEBSITE_OPTIONS) do
+        def initialize(&block)
+          instance_eval &block
+        end
       end
     end
-      
-    Object.const_set(klass, class_definition)
   end
-   
+
+  %w{ Config SearchForm }.each do |klass|
+    Object.const_set(klass, class_creation)
+  end
 end
